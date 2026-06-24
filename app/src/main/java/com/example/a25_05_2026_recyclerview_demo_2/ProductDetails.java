@@ -2,6 +2,7 @@ package com.example.a25_05_2026_recyclerview_demo_2;
 
 import android.app.AppComponentFactory;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -14,6 +15,7 @@ public class ProductDetails extends AppCompatActivity {
     TextView txtViewForProductName,txtViewForProductPrice;
     String prName;
     int prPrice;
+    Product product;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -27,8 +29,17 @@ public class ProductDetails extends AppCompatActivity {
 
     public void extractDataAndBind(){
         Intent i = getIntent();
-        prName = i.getStringExtra("product_name");
-        prPrice = i.getIntExtra("product_price",-1000);
+
+        //imp -- Serialization
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            product = i.getSerializableExtra("product",Product.class);
+        }
+//        prName = i.getStringExtra("product_name");
+//        prPrice = i.getIntExtra("product_price",-1000);
+
+        prName = product.getProductName();
+        prPrice = product.getProductPrice();
+
         imgView1.setImageResource(R.drawable.ic_launcher_background);
         txtViewForProductName.setText(prName);
         txtViewForProductPrice.setText(prPrice + "");

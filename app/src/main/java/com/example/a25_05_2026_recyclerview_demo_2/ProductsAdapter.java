@@ -35,6 +35,15 @@ public class ProductsAdapter extends
             imgView = itemView.findViewById(R.id.productImageView);
             txtViewProductName = itemView.findViewById(R.id.txtViewProductName);
             txtViewForProductPrice = itemView.findViewById(R.id.txtViewProductPrice);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    intent = new Intent(itemView.getContext(), ProductDetails.class);
+                    intent.putExtra("product",products.get(getAdapterPosition()));  //imp
+                    itemView.getContext().startActivity(intent);
+                }
+            });
         }
     }
 
@@ -70,15 +79,15 @@ public class ProductsAdapter extends
 
         //way 2 -- attaching listeners in onBind method so we get position specific data
 
-        imgView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                intent = new Intent(view.getContext(), ProductDetails.class);
-                intent.putExtra("product_name",products.get(position).getProductName());
-                intent.putExtra("product_price",products.get(position).getProductPrice());
-                view.getContext().startActivity(intent);
-            }
-        });
+//        imgView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                intent = new Intent(view.getContext(), ProductDetails.class);
+//                intent.putExtra("product_name",products.get(position).getProductName());
+//                intent.putExtra("product_price",products.get(position).getProductPrice());
+//                view.getContext().startActivity(intent);
+//            }
+//        });
     }
 
     @Override
